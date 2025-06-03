@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'widgets/person_counter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -103,23 +104,11 @@ class _UTipState extends State<UTip> {
                     children: [
                       Text("Split", style: theme.textTheme.labelMedium),
 
-                      Row(
-                        children: [
-                          IconButton(
-                            color: theme.colorScheme.primary,
-                            onPressed: decrement,
-                            icon: Icon(Icons.remove),
-                          ),
-                          Text(
-                            "$_personalCount",
-                            style: theme.textTheme.titleMedium,
-                          ),
-                          IconButton(
-                            color: theme.colorScheme.primary,
-                            onPressed: increment,
-                            icon: Icon(Icons.add),
-                          ),
-                        ],
+                      PersonCounter(
+                        theme: theme,
+                        personalCount: _personalCount,
+                        onDecrement: decrement,
+                        onIncrement: increment,
                       ),
                     ],
                   ),
