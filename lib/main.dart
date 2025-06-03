@@ -20,8 +20,29 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class UTip extends StatelessWidget {
+class UTip extends StatefulWidget {
   const UTip({super.key});
+
+  @override
+  State<UTip> createState() => _UTipState();
+}
+
+class _UTipState extends State<UTip> {
+  int _personalCount = 1;
+
+  void increment() {
+    setState(() {
+      _personalCount++;
+    });
+  }
+
+  void decrement() {
+    setState(() {
+      if (_personalCount > 1) {
+        _personalCount--;
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +73,58 @@ class UTip extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                border: BoxBorder.all(
+                  color: theme.colorScheme.primary,
+                  width: 2,
+                ),
+              ),
+              child: Column(
+                children: [
+                  TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.attach_money),
+                      labelText: "Bill Amount",
+                    ),
+                    keyboardType: TextInputType.number,
+                    onChanged: (String value) {
+                      print("Value is $value");
+                    },
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Split", style: theme.textTheme.labelMedium),
+
+                      Row(
+                        children: [
+                          IconButton(
+                            color: theme.colorScheme.primary,
+                            onPressed: decrement,
+                            icon: Icon(Icons.remove),
+                          ),
+                          Text(
+                            "$_personalCount",
+                            style: theme.textTheme.titleMedium,
+                          ),
+                          IconButton(
+                            color: theme.colorScheme.primary,
+                            onPressed: increment,
+                            icon: Icon(Icons.add),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],
